@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quail's Stag — 'Til Death</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grenze:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Grenze+Gotisch:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1E7D7;
+    --paper-2:#EADCC6;
+    --paper-edge:#DECBAC;
+    --red:#C42E25;
+    --red-deep:#9E241C;
+    --gold:#D29A2E;
+    --gold-deep:#A9781C;
+    --ink:#1C140F;
+    --ink-soft:#5A4A3A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Grenze',Georgia,serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;font-size:18px;
+    background-image:
+      radial-gradient(circle at 18% 8%, rgba(0,0,0,0.035), transparent 42%),
+      radial-gradient(circle at 85% 75%, rgba(0,0,0,0.045), transparent 46%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 90px}
+
+  /* ---------- hero ---------- */
+  .hero{text-align:center;padding:40px 0 8px}
+  .countdown{display:inline-block;background:var(--red);color:var(--paper);text-transform:uppercase;letter-spacing:2px;font-weight:700;font-size:14px;padding:7px 16px;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);margin-bottom:20px}
+  .countdown b{font-size:17px;letter-spacing:1px}
+  .forecast{margin-top:22px}
+  .fc-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+  .fc-day{border:2px solid var(--ink);background:var(--paper-2);padding:9px 12px;min-width:88px;text-align:center}
+  .fc-day .fc-name{font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:11px;color:var(--red-deep)}
+  .fc-day .fc-icon{font-size:23px;line-height:1.4}
+  .fc-day .fc-temp{font-weight:700;font-size:15px}
+  .fc-day .fc-rain{font-size:11px;color:var(--ink-soft)}
+  .fc-credit{font-size:10px;color:var(--ink-soft);margin-top:9px;text-transform:uppercase;letter-spacing:1.5px}
+  .fc-loading{font-style:italic;color:var(--ink-soft);font-size:15px}
+  .hero h1{font-family:'Grenze Gotisch',serif;font-weight:700;letter-spacing:1px;font-size:clamp(46px,13vw,82px);line-height:1;color:var(--ink)}
+  .hero .sub{font-family:'Grenze',serif;font-style:italic;font-weight:500;color:var(--red);font-size:clamp(22px,5.5vw,30px);line-height:1.1;margin:6px 0 18px}
+  .hero .when{text-transform:uppercase;letter-spacing:2px;font-weight:700;font-size:clamp(17px,4.4vw,22px);color:var(--ink)}
+  .hero .where{text-transform:uppercase;letter-spacing:3px;font-size:14px;font-weight:600;color:var(--ink-soft);margin-top:4px}
+
+  /* ---------- sections ---------- */
+  section{padding:30px 0;border-top:2px solid var(--paper-edge)}
+  .sec-head{text-align:center;margin-bottom:22px}
+  .sec-head h2{font-family:'Grenze Gotisch',serif;font-weight:700;letter-spacing:1px;font-size:clamp(28px,7vw,40px);color:var(--red);line-height:1.05}
+  .sec-head .kicker{font-style:italic;color:var(--ink-soft);font-size:17px;margin-top:4px}
+
+  /* ---------- crew ---------- */
+  .crew-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px}
+  .name-card{text-align:center;border:2px solid var(--ink);background:var(--paper-2);padding:14px 8px}
+  .name-card.stag{border-color:var(--red);background:#F6E4D6}
+  .name-card .nm{font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:20px;color:var(--ink);line-height:1.1}
+  .name-card.stag .nm{color:var(--red)}
+  .name-card .tag{text-transform:uppercase;letter-spacing:2px;font-size:11px;color:var(--gold-deep);font-weight:600;margin-top:3px}
+  .name-card.stag .tag{color:var(--red-deep)}
+
+  /* ---------- itinerary ---------- */
+  .day{margin-bottom:26px}
+  .day-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:6px}
+  .day-head .dh-day{font-weight:700;text-transform:uppercase;letter-spacing:1px;font-size:20px;color:var(--ink)}
+  .day-head .dh-name{font-style:italic;font-weight:500;color:var(--red);font-size:19px;margin-left:auto}
+  .slot{display:flex;gap:16px;padding:11px 2px;border-bottom:1px dotted var(--paper-edge)}
+  .slot:last-child{border-bottom:none}
+  .slot .t{font-weight:700;color:var(--red-deep);font-size:18px;min-width:54px;flex-shrink:0;padding-top:1px;letter-spacing:.5px}
+  .slot .act{flex:1}
+  .slot .act b{display:block;font-size:20px;font-weight:700;letter-spacing:.2px}
+  .slot .act span.note{display:block;color:var(--ink-soft);font-size:17px;font-style:italic}
+  .slot .act a{color:var(--red);text-decoration:underline;font-style:normal}
+  .slot .act .eatlink{display:inline-block;margin-top:4px;font-size:15px}
+  .wxnote{font-style:italic;color:var(--ink-soft);font-size:16px;margin-top:6px}
+  .opt{margin-top:5px;font-size:16px;line-height:1.4}
+  .opt .on{font-weight:700;color:var(--ink)}
+  .opt .od{color:var(--ink-soft);font-style:italic}
+  .oor{font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);font-size:12px;margin:6px 0}
+  .duties{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px}
+  .slot .act .duties .duty{display:inline-block;font-size:13px;color:var(--ink);font-style:normal;background:rgba(255,255,255,.45);border:1px solid var(--paper-edge);padding:3px 10px;border-radius:2px;line-height:1.5}
+  .slot .act .duties .duty b{display:inline;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--red-deep);margin-right:6px}
+  .teams{margin-top:9px}
+  .teams .team-label{text-transform:uppercase;letter-spacing:1px;font-size:11px;font-weight:700;color:var(--red-deep);margin-bottom:5px}
+  .team-list{list-style:none;counter-reset:tm;display:flex;flex-direction:column;gap:5px}
+  .team-list li{counter-increment:tm;display:flex;gap:10px;font-size:16px;align-items:baseline}
+  .team-list li::before{content:counter(tm) ".";font-weight:700;color:var(--red);min-width:18px;font-size:15px}
+
+  /* ---------- intel cards ---------- */
+  .cards{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:560px){.cards{grid-template-columns:1fr 1fr}}
+  .card{border:2px solid var(--ink);background:var(--paper-2);padding:18px 18px 16px}
+  .card h3{font-weight:700;text-transform:uppercase;letter-spacing:1.5px;font-size:19px;color:var(--ink);margin-bottom:8px}
+  .card p{font-size:17px;margin-bottom:6px}
+  .btn{display:inline-block;margin-top:10px;background:var(--red);color:var(--paper);
+    text-transform:uppercase;letter-spacing:2px;font-size:13px;font-weight:700;
+    padding:9px 16px;border:2px solid var(--ink);text-decoration:none;
+    box-shadow:3px 3px 0 var(--ink);transition:transform .12s, box-shadow .12s}
+  .btn:hover{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.gold{background:var(--gold)}
+
+  /* ---------- footer ---------- */
+  footer{text-align:center;padding:38px 0 0;border-top:2px solid var(--paper-edge)}
+  .til{display:inline-block;font-family:'Grenze Gotisch',serif;font-weight:700;color:var(--red);border:3px solid var(--red);
+    padding:8px 20px;transform:rotate(-4deg);letter-spacing:1px;font-size:24px;opacity:.9;margin-bottom:14px}
+  footer .by{font-style:italic;color:var(--ink-soft);font-size:16px}
+
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="countdown" id="countdown"></div>
+    <h1>Quail's Stag</h1>
+    <div class="sub">The Beacons are lit</div>
+    <div class="when">17<sup>th</sup>&ndash;19<sup>th</sup> July 2026</div>
+    <div class="where">Brecon Beacons &bull; Wales</div>
+    <div class="forecast" id="forecast"></div>
+  </header>
+
+  <!-- INTEL -->
+  <section>
+    <div class="sec-head">
+      <h2>The Logistics</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>The House</h3>
+        <p>Our home for the weekend in the Brecon Beacons.</p>
+        <p><b>Check in:</b> 3:00pm Friday<br><b>Check out:</b> 11:00am Sunday</p>
+        <a class="btn" href="https://www.airbnb.co.uk/rooms/25863214" target="_blank" rel="noopener">View the Airbnb</a>
+      </div>
+      <div class="card">
+        <h3>Getting There</h3>
+        <p>Brecon Beacons, Wales. Sort your lifts.</p>
+        <a class="btn gold" href="https://maps.app.goo.gl/WCctWgnYUBrLyniU7" target="_blank" rel="noopener">Open in Maps</a>
+      </div>
+      <div class="card">
+        <h3>The Main Event</h3>
+        <p>Phoenix at Zip World. Arrive 30 mins before.</p>
+        <p><b>Need to bring:</b> gloves and trainers.</p>
+        <a class="btn" href="https://www.zipworld.co.uk/adventures/phoenix" target="_blank" rel="noopener">Zip World</a>
+      </div>
+      <div class="card">
+        <h3>Other Kit</h3>
+        <p>Trainers for walking, shorts for a potential wild swim, a towel, and a waterproof jacket (just in case?).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ITINERARY -->
+  <section>
+    <div class="sec-head">
+      <h2>The Order of Service</h2>
+    </div>
+
+    <div class="day">
+      <div class="day-head"><span class="dh-day">Friday 17th</span><span class="dh-name">the arrival</span></div>
+      <div class="slot"><div class="t">15:00</div><div class="act"><b>Check In</b>
+        <div class="wxnote">Stags welcome anytime from now</div></div></div>
+      <div class="slot"><div class="t">18:00</div><div class="act"><b>Fire up the BBQ</b></div></div>
+      <div class="slot"><div class="t">21:00</div><div class="act"><b>Organised Fun &mdash; Quail Quiz</b>
+        <div class="duties"><span class="duty"><b>Quizmaster</b> T</span></div>
+        <div class="teams"><div class="team-label">Quiz Teams</div><ol class="team-list"><li>Scran, Karim, Shandy</li><li>Quail, Nick, Ben</li><li>Bobby, Haggs, Mole</li></ol></div></div></div>
+    </div>
+
+    <div class="day">
+      <div class="day-head"><span class="dh-day">Saturday 18th</span><span class="dh-name">the main event</span></div>
+      <div class="slot"><div class="t">09:00</div><div class="act"><b>Breakfast</b></div></div>
+      <div class="slot"><div class="t">10:30</div><div class="act"><b>Leave for Zip World</b>
+        <div class="duties"><span class="duty"><b>Drivers</b> 2 needed</span></div></div></div>
+      <div class="slot"><div class="t">11:00</div><div class="act"><b>Zip World &mdash; Phoenix</b></div></div>
+      <div class="slot"><div class="t">13:00</div><div class="act"><b>Lunch</b><a class="eatlink" href="https://www.zipworld.co.uk/eat-drink/cegin-glo" target="_blank" rel="noopener">Cegin Glo &rarr;</a></div></div>
+      <div class="slot"><div class="t">15:00</div><div class="act"><b>Waterfall Wander</b>
+        <div class="wxnote">Depending on the weather, either&hellip;</div>
+        <div class="opt"><span class="on">Henrhyd Falls</span> <span class="od">aka the Dark Knight Rises Batcave</span></div>
+        <div class="oor">or</div>
+        <div class="opt"><span class="on">Pontneddfechan River Pools / Elidir Waterfall trail</span> <span class="od">dip your toes in if it&rsquo;s hot</span></div></div></div>
+      <div class="slot"><div class="t">19:00</div><div class="act"><b>Dinner</b></div></div>
+      <div class="slot"><div class="t">22:00</div><div class="act"><b>World Cup &mdash; Third-Place Playoff</b></div></div>
+    </div>
+
+    <div class="day">
+      <div class="day-head"><span class="dh-day">Sunday 19th</span><span class="dh-name">the reckoning</span></div>
+      <div class="slot"><div class="t">11:00</div><div class="act"><b>Checkout</b></div></div>
+    </div>
+  </section>
+
+
+</div>
+<script>
+  (function(){
+    var el = document.getElementById("countdown");
+    if(!el) return;
+    var start = new Date(2026, 6, 17, 0, 0, 0);   // 17 July 2026
+    var end   = new Date(2026, 6, 19, 23, 59, 59); // end of 19 July 2026
+    var now = new Date();
+    if(now > end){ el.textContent = "That's a wrap"; return; }
+    if(now >= start){ el.textContent = "The weekend is here!"; return; }
+    var days = Math.ceil((start - now) / 86400000);
+    el.innerHTML = "<b>" + days + "</b> " + (days === 1 ? "day" : "days") + " to go";
+  })();
+</script>
+<script>
+  (function(){
+    var box=document.getElementById("forecast");
+    if(!box) return;
+    var url="https://api.open-meteo.com/v1/forecast?latitude=51.88&longitude=-3.43"
+      +"&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
+      +"&timezone=Europe%2FLondon&start_date=2026-07-17&end_date=2026-07-19";
+    var names={"2026-07-17":"Fri","2026-07-18":"Sat","2026-07-19":"Sun"};
+    function icon(c){
+      if(c===0)return"\u2600\uFE0F";
+      if(c<=2)return"\uD83C\uDF24\uFE0F";
+      if(c===3)return"\u2601\uFE0F";
+      if(c===45||c===48)return"\uD83C\uDF2B\uFE0F";
+      if(c>=51&&c<=57)return"\uD83C\uDF26\uFE0F";
+      if(c>=61&&c<=67)return"\uD83C\uDF27\uFE0F";
+      if(c>=71&&c<=77)return"\u2744\uFE0F";
+      if(c>=80&&c<=82)return"\uD83C\uDF26\uFE0F";
+      if(c>=95)return"\u26C8\uFE0F";
+      return"\uD83C\uDF25\uFE0F";
+    }
+    fetch(url).then(function(r){return r.json();}).then(function(d){
+      var dl=d&&d.daily;
+      if(!dl||!dl.time||!dl.time.length) throw new Error("no data");
+      var rows="";
+      for(var i=0;i<dl.time.length;i++){
+        var t=dl.time[i];
+        var rain=dl.precipitation_probability_max[i];
+        rows+='<div class="fc-day"><div class="fc-name">'+(names[t]||t)+'</div>'
+          +'<div class="fc-icon">'+icon(dl.weather_code[i])+'</div>'
+          +'<div class="fc-temp">'+Math.round(dl.temperature_2m_max[i])+'\u00B0 / '+Math.round(dl.temperature_2m_min[i])+'\u00B0</div>'
+          +'<div class="fc-rain">'+(rain!=null?rain+'% rain':'')+'</div></div>';
+      }
+      box.innerHTML='<div class="fc-row">'+rows+'</div>'
+        +'<div class="fc-credit">Brecon Beacons \u00B7 data by open-meteo.com</div>';
+    }).catch(function(){
+      box.innerHTML='';
+    });
+  })();
+</script>
+</body>
+</html>
