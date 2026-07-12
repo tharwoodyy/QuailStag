@@ -105,9 +105,8 @@
     box-shadow:3px 3px 0 var(--ink);transition:transform .12s, box-shadow .12s}
   .btn:hover{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink)}
   .btn.gold{background:var(--gold)}
-  .play-blurb{text-align:center;font-style:italic;color:var(--ink-soft);font-size:17px;margin-bottom:4px}
-  .play-wrap{text-align:center}
-  .playbtn{font-size:16px;padding:14px 30px;margin-top:14px}
+  .card-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .card-btns .btn{margin-top:0}
 
   /* ---------- footer ---------- */
   footer{text-align:center;padding:38px 0 0;border-top:2px solid var(--paper-edge)}
@@ -139,11 +138,10 @@
       <div class="card">
         <h3>The House</h3>
         <p>Our home for the weekend.</p>
-        <a class="btn" href="https://www.airbnb.co.uk/rooms/25863214" target="_blank" rel="noopener">View the Airbnb</a>
-      </div>
-      <div class="card">
-        <h3>Getting There</h3>
-        <a class="btn gold" href="https://maps.app.goo.gl/WCctWgnYUBrLyniU7" target="_blank" rel="noopener">Open in Maps</a>
+        <div class="card-btns">
+          <a class="btn" href="https://www.airbnb.co.uk/rooms/25863214" target="_blank" rel="noopener">View the Airbnb</a>
+          <a class="btn gold" href="https://maps.app.goo.gl/WCctWgnYUBrLyniU7" target="_blank" rel="noopener">Open in Maps</a>
+        </div>
       </div>
       <div class="card">
         <h3>The Main Event</h3>
@@ -154,6 +152,11 @@
       <div class="card">
         <h3>Other Kit</h3>
         <p>Trainers for walking, shorts for a potential wild swim, a towel, and a waterproof jacket just in case.</p>
+      </div>
+      <div class="card">
+        <h3>Whack-a-Quail</h3>
+        <p>He keeps popping up. Sort him out &mdash; 20 seconds on the clock.</p>
+        <a class="btn" href="game.html">Play the game &rarr;</a>
       </div>
     </div>
   </section>
@@ -195,16 +198,6 @@
       <div class="day-head"><span class="dh-day">Sunday 19th</span><span class="dh-name">the reckoning</span></div>
       <div class="slot"><div class="t">11:00</div><div class="act"><b>Checkout</b></div></div>
     </div>
-  </section>
-
-
-  <!-- GAME -->
-  <section>
-    <div class="sec-head">
-      <h2>Whack-a-Quail</h2>
-    </div>
-    <p class="play-blurb">He keeps popping up. Sort him out &mdash; 20 seconds on the clock.</p>
-    <div class="play-wrap"><a class="btn playbtn" href="game.html">Play the game &rarr;</a></div>
   </section>
 
 </div>
