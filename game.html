@@ -110,15 +110,17 @@
   function popRandom(){
     if(!active) return;
     var down = holes.filter(function(h){ return !h.classList.contains('up'); });
+    var elapsed = 20 - timeLeft;
     if(down.length){
       var h = down[rand(0,down.length)];
       h.classList.add('up');
-      var life = rand(650,1150);
+      var maxLife = Math.max(470, 1100 - elapsed*34);
+      var life = rand(420, maxLife);
       setTimeout(function(){ h.classList.remove('up'); }, life);
     }
-    var elapsed = 20 - timeLeft;
-    var gap = Math.max(360, 880 - elapsed*18);
-    popTimer = setTimeout(popRandom, rand(Math.round(gap*0.6), gap));
+    // ramps gently early, then accelerates hard in the final seconds
+    var gap = Math.max(220, 850 - Math.round(elapsed*elapsed*1.7));
+    popTimer = setTimeout(popRandom, rand(Math.round(gap*0.55), gap));
   }
 
   function whack(h){
